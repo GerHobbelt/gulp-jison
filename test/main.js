@@ -13,12 +13,12 @@ var createVirtualFile = function (filename, contents) {
         cwd: process.cwd(),
         contents: contents
     });
-}
+};
 
 describe('gulp-jison', function() {
     it('should output the same parser as jison', function (done) {
         var filepath = 'test/fixtures/calculator.jison';
-        var text = fs.readFileSync(filepath);
+        var text = fs.readFileSync(filepath, 'utf-8');
         var expected = rawJison.Generator(text.toString()).generate();
 
         gulpJison()
@@ -34,7 +34,7 @@ describe('gulp-jison', function() {
         var options = {type: 'slr', moduleType: 'amd', moduleName: 'jsoncheck'};
 
         var filepath = 'test/fixtures/calculator.jison';
-        var text = fs.readFileSync(filepath);
+        var text = fs.readFileSync(filepath, 'utf-8');
         var expected = rawJison.Generator(text.toString(), options).generate();
 
         gulpJison(options)
