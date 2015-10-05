@@ -40,7 +40,7 @@ module.exports = function (options) {
                 return content;
             });
             var customizer = mkF(fileOpts.customizer, function (file, options) {
-                console.log("jison file: ", file, options);
+                // console.log("jison file: ", file, options);
             });
             
             // do not pollute the Jison environment with our own options:
