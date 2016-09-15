@@ -54,6 +54,15 @@ module.exports = function gulp_jison(options) {
                 var source_contents = file.contents.toString();
                 source_contents = preprocessor(file, source_contents, fileOpts);
 
+                try {
+                    // Will throw an error if the input is not JSON.
+                    var json_input = JSON.parse(source_contents);
+
+                    source_contents = json_input;
+                } catch (err) {
+                    // JSON parsing failed, must be a Jison grammar.
+                }
+
                 var gen = jison.Generator(source_contents, fileOpts);
                 var dest_contents = gen.generate();
 
