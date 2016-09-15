@@ -6,6 +6,7 @@ var fs = require('fs');
 var path = require('path');
 require('mocha');
 
+
 var createVirtualFile = function (filename, contents) {
     return new gutil.File({
         path: path.join(__dirname, 'fixtures', filename),

@@ -1,6 +1,6 @@
 {
   "name": "gulp-jison",
-  "version": "1.2.0",
+  "version": "1.2.1-2",
   "description": "Jison plugin for gulp",
   "main": "index.js",
   "scripts": {
@@ -24,13 +24,13 @@
   },
   "homepage": "https://github.com/matteckert/gulp-jison",
   "devDependencies": {
-    "mocha": "~2.4.5",
-    "should": "~8.3.1"
+    "mocha": "3.0.2",
+    "should": "11.1.0"
   },
   "dependencies": {
     "jison": "git://github.com/GerHobbelt/jison.git#master",
-    "object-assign": "~4.1.0",
-    "through2": "~2.0.1",
-    "gulp-util": "~3.0.7"
+    "object-assign": "4.1.0",
+    "through2": "2.0.1",
+    "gulp-util": "3.0.7"
   }
 }
