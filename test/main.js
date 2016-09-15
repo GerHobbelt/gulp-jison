@@ -1,9 +1,11 @@
 var should = require('should');
 var rawJison = require('jison');
+var Generator = require('jison').Generator;
 var gulpJison = require('../');
 var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
+var lexParser = require('lex-parser');
 var ebnfParser = require('ebnf-parser');
 require('mocha');
 
@@ -33,19 +35,27 @@ describe('gulp-jison', function() {
     });
 
     it('should work with options', function (done) {
-        var options = {type: 'slr', moduleType: 'amd', moduleName: 'jsoncheck'};
+        var options = {
+            type: 'slr',
+            moduleType: 'amd',
+            moduleName: 'jsoncheck',
+            lexFile: 'test/fixtures/calculator.jisonlex'
+        };
 
         var filepath = 'test/fixtures/calculator.jison';
-        var text = fs.readFileSync(filepath, 'utf-8');
-        var expected = rawJison.Generator(text.toString(), options).generate();
+        var grammarText = fs.readFileSync(filepath, 'utf-8');
+
+        var grammar = ebnfParser.parse(grammarText);
+        grammar.lex = lexParser.parse(fs.readFileSync(options.lexFile, 'utf-8'));
+        var expected = rawJison.Parser(text.toString(), options).generate();
 
         gulpJison(options)
             .on('error', done)
             .on('data', function(data) {
-                data.contents.toString().should.equal(expected);
+                data.contents.toString().should.equal(expectedGrammar);
                 done();
             })
-            .write(createVirtualFile('calculator.jison', text));
+            .write(createVirtualFile('calculator.jison', new Buffer(grammarText)));
     });
 
     it('should work with json', function (done) {
