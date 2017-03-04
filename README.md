@@ -16,7 +16,7 @@ gulp.task('jison', function() {
 });
 ```
 
-With a seperate lexical grammar file
+With a separate lexical grammar file
 
 ```javascript
 var jison = require('gulp-jison');
