@@ -2,7 +2,11 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var objectAssign = require('object-assign');
 var PluginError = gutil.PluginError;
-var jison = require('jison');
+var Generator = require('jison').Generator;
+
+var ebnfParser = require('ebnf-parser');
+var lexParser  = require('lex-parser');
+var fs = require('fs');
 
 const PLUGIN_NAME = 'gulp-jison';
 
@@ -61,6 +65,11 @@ module.exports = function gulp_jison(options) {
                     source_contents = json_input;
                 } catch (err) {
                     // JSON parsing failed, must be a Jison grammar.
+                }
+
+                if (options.lexFile) {
+                    var lexFile = fs.readFileSync(options.lexFile, 'utf-8');
+                    grammar.lex = lexParser.parse(lexFile);
                 }
 
                 var gen = jison.Generator(source_contents, fileOpts);
