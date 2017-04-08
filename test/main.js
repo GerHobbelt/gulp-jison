@@ -1,6 +1,6 @@
 var should = require('should');
 var rawJison = require('jison');
-var Generator = require('jison').Generator;
+var Generator = rawJison.Generator;
 var gulpJison = require('../');
 var gutil = require('gulp-util');
 var fs = require('fs');
@@ -8,6 +8,7 @@ var path = require('path');
 var lexParser = require('lex-parser');
 var ebnfParser = require('ebnf-parser');
 require('mocha');
+
 
 
 var createVirtualFile = function (filename, contents) {
@@ -35,19 +36,27 @@ describe('gulp-jison', function() {
     });
 
     it('should work with options', function (done) {
+        // // as the example includes its own require() code which has a RELATIVE PATH
+        // // we MUST set the current working directory before we commence:
+        // console.log('changing to directory: ', path.join(__dirname, 'fixtures'));
+        // process.chdir(path.join(__dirname, 'fixtures'));
+
+        // console.error('pwd: ', process.cwd());
+
         var options = {
             type: 'slr',
             moduleType: 'amd',
             moduleName: 'jsoncheck',
-            lexFile: 'test/fixtures/calculator.jisonlex'
+            lexfile: 'test/fixtures/calculator.jisonlex'
         };
 
         var filepath = 'test/fixtures/calculator.jison';
         var grammarText = fs.readFileSync(filepath, 'utf-8');
 
         var grammar = ebnfParser.parse(grammarText);
-        grammar.lex = lexParser.parse(fs.readFileSync(options.lexFile, 'utf-8'));
-        var expected = rawJison.Parser(text.toString(), options).generate();
+        var lexerText = fs.readFileSync(options.lexfile, 'utf-8');
+        grammar.lex = lexParser.parse(lexerText);
+        var expected = rawJison.Parser(grammarText, lexerText, options).generate();
 
         gulpJison(options)
             .on('error', done)

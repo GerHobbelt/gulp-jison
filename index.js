@@ -2,7 +2,8 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var objectAssign = require('object-assign');
 var PluginError = gutil.PluginError;
-var Generator = require('jison').Generator;
+var rawJison = require('jison');
+var Generator = rawJison.Generator;
 
 var ebnfParser = require('ebnf-parser');
 var lexParser  = require('lex-parser');
@@ -10,6 +11,10 @@ var fs = require('fs');
 
 const PLUGIN_NAME = 'gulp-jison';
 
+var assert = require('assert');
+assert(rawJison);
+assert(rawJison.defaultJisonOptions);
+assert(Generator);
 
 module.exports = function gulp_jison(options) {
     options = options || {};
@@ -35,7 +40,7 @@ module.exports = function gulp_jison(options) {
         }
 
         if (file.isBuffer()) {
-            var fileOpts = objectAssign({}, jison.defaultJisonOptions, options);
+            var fileOpts = objectAssign({}, rawJison.defaultJisonOptions, options);
             
             // special callbacks:
             var preprocessor = mkF(fileOpts.preprocessor, function (file, content, options) {
@@ -67,12 +72,12 @@ module.exports = function gulp_jison(options) {
                     // JSON parsing failed, must be a Jison grammar.
                 }
 
-                if (options.lexFile) {
-                    var lexFile = fs.readFileSync(options.lexFile, 'utf-8');
-                    grammar.lex = lexParser.parse(lexFile);
+                if (options.lexfile) {
+                    var lexfile = fs.readFileSync(options.lexfile, 'utf-8');
+                    grammar.lex = lexParser.parse(lexfile);
                 }
 
-                var gen = jison.Generator(source_contents, fileOpts);
+                var gen = Generator(source_contents, fileOpts);
                 var dest_contents = gen.generate();
 
                 dest_contents = postprocessor(file, dest_contents, fileOpts);
