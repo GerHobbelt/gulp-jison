@@ -23,7 +23,7 @@ var jison = require('gulp-jison');
 
 gulp.task('jison', function() {
     return gulp.src('./src/lang.jison')
-        .pipe(jison({ lexFile: 'lang.jisonlex' }))
+        .pipe(jison({ lexfile: 'lang.jisonlex' }))
         .pipe(gulp.dest('./src/'));
 });
 ```
