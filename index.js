@@ -2,7 +2,7 @@ var through = require('through2');
 var gutil = require('gulp-util');
 var objectAssign = require('object-assign');
 var PluginError = gutil.PluginError;
-var rawJison = require('jison');
+var rawJison = require('jison-gho');
 var Generator = rawJison.Generator;
 
 var ebnfParser = require('ebnf-parser');
