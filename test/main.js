@@ -1,5 +1,5 @@
 var should = require('should');
-var rawJison = require('jison');
+var rawJison = require('jison-gho');
 var Generator = rawJison.Generator;
 var gulpJison = require('../');
 var gutil = require('gulp-util');
@@ -7,7 +7,9 @@ var fs = require('fs');
 var path = require('path');
 var lexParser = require('lex-parser');
 var ebnfParser = require('ebnf-parser');
+
 require('mocha');
+var assert = require('assert');
 
 
 
@@ -36,32 +38,33 @@ describe('gulp-jison', function() {
     });
 
     it('should work with options', function (done) {
-        // // as the example includes its own require() code which has a RELATIVE PATH
-        // // we MUST set the current working directory before we commence:
-        // console.log('changing to directory: ', path.join(__dirname, 'fixtures'));
-        // process.chdir(path.join(__dirname, 'fixtures'));
-
-        // console.error('pwd: ', process.cwd());
-
         var options = {
             type: 'slr',
             moduleType: 'amd',
             moduleName: 'jsoncheck',
-            lexfile: 'test/fixtures/calculator.jisonlex'
+            // lexfile: 'test/fixtures/calculator.jisonlex'
         };
 
         var filepath = 'test/fixtures/calculator.jison';
         var grammarText = fs.readFileSync(filepath, 'utf-8');
+        assert(grammarText, 'jison file should load');
 
         var grammar = ebnfParser.parse(grammarText);
-        var lexerText = fs.readFileSync(options.lexfile, 'utf-8');
-        grammar.lex = lexParser.parse(lexerText);
+        assert(grammar, 'jison grammar should compile');
+        if (options.lexfile) {
+            var lexerText = fs.readFileSync(options.lexfile, 'utf-8');
+            assert(lexerText, 'jison lexer spec should load');
+            grammar.lex = lexParser.parse(lexerText);
+            assert(grammar.lex, 'jison lexer spec should compile');
+        } else {
+            var lexerText = null;
+        }
         var expected = rawJison.Parser(grammarText, lexerText, options).generate();
 
         gulpJison(options)
             .on('error', done)
             .on('data', function(data) {
-                data.contents.toString().should.equal(expectedGrammar);
+                data.contents.toString().should.equal(expected);
                 done();
             })
             .write(createVirtualFile('calculator.jison', new Buffer(grammarText)));
