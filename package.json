@@ -1,6 +1,6 @@
 {
   "name": "gulp-jison",
-  "version": "1.2.1-177",
+  "version": "1.2.1-178",
   "description": "Jison plugin for gulp",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "jison-gho": "0.4.18-177",
+    "jison-gho": "0.4.18-178",
     "object-assign": "4.1.1",
     "through2": "2.0.3",
     "gulp-util": "3.0.8"
