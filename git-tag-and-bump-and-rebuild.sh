@@ -50,6 +50,7 @@ if !        npm version --no-git-tag-version prerelease                       ; 
 
 git commit -a -m 'bumped build revision'
 git push --all
+git push --tags
 
 
 
