@@ -72,12 +72,22 @@ module.exports = function gulp_jison(options) {
                     // JSON parsing failed, must be a Jison grammar.
                 }
 
+                var lex_source_contents = null;
                 if (options.lexfile) {
                     var lexfile = fs.readFileSync(options.lexfile, 'utf-8');
-                    grammar.lex = lexParser.parse(lexfile);
+
+                    try {
+                        // Will throw an error if the input is not JSON.
+                        var json_input = JSON.parse(source_contents);
+
+                        lex_source_contents = json_input;
+                    } catch (err) {
+                        // JSON parsing failed, must be a Jison lexer spec.
+                    }
+                    lex_source_contents = lexfile;
                 }
 
-                var gen = Generator(source_contents, fileOpts);
+                var gen = Generator(source_contents, lex_source_contents, fileOpts);
                 var dest_contents = gen.generate();
 
                 dest_contents = postprocessor(file, dest_contents, fileOpts);

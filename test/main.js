@@ -42,7 +42,7 @@ describe('gulp-jison', function() {
             type: 'slr',
             moduleType: 'amd',
             moduleName: 'jsoncheck',
-            // lexfile: 'test/fixtures/calculator.jisonlex'
+            lexfile: 'test/fixtures/calculator.jisonlex'
         };
 
         var filepath = 'test/fixtures/calculator.jison';
