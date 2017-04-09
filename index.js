@@ -12,6 +12,7 @@ var fs = require('fs');
 const PLUGIN_NAME = 'gulp-jison';
 
 var assert = require('assert');
+
 assert(rawJison);
 assert(rawJison.defaultJisonOptions);
 assert(Generator);
