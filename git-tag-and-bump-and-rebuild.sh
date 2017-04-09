@@ -59,10 +59,6 @@ git push --tags
 # ---------------------------------------------------------------------------
 
 
-# rebuild everything before we go and tag the buggers!
-#make git-tag
-#make site
-
 ncu -a --packageFile package.json 
 git commit -a -m 'updated NPM packages'
 git push --all
