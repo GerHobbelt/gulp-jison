@@ -34,6 +34,8 @@
     "gulp-util": "3.0.8"
   },
   "devDependencies": {
+    "@gerhobbelt/lex-parser": "0.6.0-193",
+    "@gerhobbelt/ebnf-parser": "0.6.0-193",
     "app-module-path": "2.2.0",
     "mocha": "3.5.3",
     "should": "13.1.0"

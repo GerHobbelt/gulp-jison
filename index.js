@@ -5,8 +5,6 @@ var PluginError = gutil.PluginError;
 var rawJison = require('jison-gho');
 var Generator = rawJison.Generator;
 
-var ebnfParser = require('ebnf-parser');
-var lexParser  = require('lex-parser');
 var fs = require('fs');
 
 const PLUGIN_NAME = 'gulp-jison';

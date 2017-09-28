@@ -5,8 +5,8 @@ var gulpJison = require('../');
 var gutil = require('gulp-util');
 var fs = require('fs');
 var path = require('path');
-var lexParser = require('lex-parser');
-var ebnfParser = require('ebnf-parser');
+var lexParser = require('@gerhobbelt/lex-parser');
+var ebnfParser = require('@gerhobbelt/ebnf-parser');
 
 require('mocha');
 var assert = require('assert');
