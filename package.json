@@ -1,10 +1,11 @@
 {
-  "name": "gulp-jison",
+  "name": "@gerhobbelt/gulp-jison",
   "version": "1.2.1-179",
   "description": "Jison plugin for gulp",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/.bin/mocha",
+    "pub": "npm publish --access public"
   },
   "repository": {
     "type": "git",
