@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/gulp-jison",
-  "version": "1.2.1-193",
+  "version": "1.2.1-214",
   "description": "Jison plugin for gulp",
   "main": "index.js",
   "scripts": {
@@ -28,16 +28,16 @@
     "node": ">=4.0"
   },
   "dependencies": {
-    "jison-gho": "0.6.0-193",
+    "jison-gho": "0.6.1-214",
     "object-assign": "4.1.1",
     "through2": "2.0.3",
     "gulp-util": "3.0.8"
   },
   "devDependencies": {
-    "@gerhobbelt/lex-parser": "0.6.0-193",
-    "@gerhobbelt/ebnf-parser": "0.6.0-193",
+    "@gerhobbelt/lex-parser": "0.6.1-214",
+    "@gerhobbelt/ebnf-parser": "0.6.1-214",
     "app-module-path": "2.2.0",
-    "mocha": "3.5.3",
-    "should": "13.1.0"
+    "mocha": "4.0.1",
+    "should": "13.1.3"
   }
 }
